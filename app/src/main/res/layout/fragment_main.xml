@@ -2,42 +2,130 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
+        <variable
+            name="viewModel"
+            type="cat.montilivi.appclient.viewmodel.ViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Fragments.MainFragment"
+        tools:context=".fragments.MainFragment"
         app:defaultNavHost="true"
         app:navGraph="@navigation/navegation">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toTopOf="@+id/txtTittle"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/txtTitol"
+                android:id="@+id/txtTittle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Primera pantalla"
-                app:layout_constraintBottom_toTopOf="@+id/btnSeguent"
+                android:text="LOGIN"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                android:textColor="@color/black"
+
+                app:layout_constraintBottom_toTopOf="@+id/LinearLayout1"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                />
+
+            <LinearLayout
+                android:id="@+id/LinearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/LinearLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/txtTittle">
+
+                <TextView
+                    android:id="@+id/txtCorreu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CORREU ELECTRONIC"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/etCorreuClient"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintTop_toBottomOf="parent" />
+
+                <EditText
+                    android:id="@+id/etCorreuClient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:tooltipText="client.primer@gmail.com"
+                    app:layout_constraintBottom_toTopOf="@+id/LinearLayout2"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCorreu" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/btnEntrar"
+                app:layout_constraintTop_toBottomOf="@+id/LinearLayout1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+
+                <TextView
+                    android:id="@+id/txtPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CONTRASENYA"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/etPasswordClient"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintTop_toBottomOf="parent" />
+
+                <EditText
+                    android:id="@+id/etPasswordClient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:tooltipText="client.primer@gmail.com"
+                    app:layout_constraintBottom_toTopOf="@+id/btnEntrar"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+            </LinearLayout>
 
             <Button
-                android:id="@+id/btnSeguent"
+                android:id="@+id/btnEntrar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SEGONA PANTALL"
+                android:backgroundTint="@color/LimeGreen"
+                android:text="ENTRAR"
+                android:textColor="@color/black"
+
+                app:layout_constraintBottom_toTopOf="@+id/btnRegistre"
+                app:layout_constraintTop_toBottomOf="@+id/LinearLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <Button
+                android:id="@+id/btnRegistre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple"
+                android:text="REGISTRAR"
+                android:textColor="@color/white"
+                android:onClick="@{() -> viewModel.TestGet()}"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtTitol" />
-
+                app:layout_constraintTop_toBottomOf="@+id/btnEntrar" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>

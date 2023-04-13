@@ -1,6 +1,5 @@
-package cat.montilivi.appclient.OKHTTP
+package cat.montilivi.appclient.okhttp
 
-import android.app.Application
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
@@ -21,7 +20,7 @@ class OkHttp {
 
 
 
-    fun CrearClient():OkHttpClient
+    private fun CrearClient():OkHttpClient
     {
         //set self sign certificate
         val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
@@ -55,20 +54,50 @@ class OkHttp {
                 var arr: JSONArray? = null
 
                 client.newCall(request).execute().use { resposta ->
-                    if (!resposta.isSuccessful) throw IOException("Unexpected code $resposta")
+                    if (!resposta.isSuccessful){
+                        throw IOException("Unexpected code $resposta")
+                    }
 
                     arr = JSONArray(resposta.body()!!.string())
-                    println(arr?.length())
+                    //println(arr?.length())
                 }
-
                 queue.add(arr.toString())
             }
             catch (e: Exception) {
-                e.printStackTrace()
-                queue.add("Problemas amb la funcio")
+                queue.add("${e.message}")
             }
         }
         thread.start()
+        return queue.take()
+    }
+
+
+    public fun LoginUser(correu:String, password:String):Boolean{
+        var resultFinal = false
+
+        val queue = LinkedBlockingQueue<Boolean>()
+        val thread = Thread{
+            try{
+                val request = Request.Builder()
+                    .url(WEB_SERVER)
+                    .build()
+
+                var resultArray:JSONArray?= null
+
+                client.newCall(request).execute().use { resposta ->
+                    if(!resposta.isSuccessful){
+                        throw IOException("Problemas amb la funcio \" LoginUser \"")
+                    }
+
+
+                }
+            }
+            catch (e:Exception){
+                println(e.message.toString())
+                queue.add(false)
+            }
+        }
+
         return queue.take()
     }
 

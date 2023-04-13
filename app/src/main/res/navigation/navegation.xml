@@ -6,7 +6,7 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="cat.montilivi.appclient.Fragments.MainFragment"
+        android:name="cat.montilivi.appclient.fragments.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/segonFragment"
-        android:name="cat.montilivi.appclient.Fragments.SegonFragment"
+        android:name="cat.montilivi.appclient.fragments.SegonFragment"
         android:label="fragment_segon"
         tools:layout="@layout/fragment_segon" >
         <action
