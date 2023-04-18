@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import cat.montilivi.appclient.viewmodel.ViewModel
 
 import cat.montilivi.appclient.databinding.FragmentMainBinding
@@ -39,19 +42,34 @@ class MainFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
+
         binding.btnEntrar.setOnClickListener { it ->
             var correuClient = binding.etCorreuClient.text.toString()
             var passwordClient = binding.etPasswordClient.text.toString()
 
-            var result = viewModel.LoginClient(correuClient,passwordClient)
+            viewModel.LoginClient(correuClient,passwordClient)
 
-            if(result){
-                //TODO NAVEGAR SEGON FRAG
 
-            }else{
-                //TODO INFORMAR CORREU O PASSWORD ERRONIA
+            viewModel.login.observe(viewLifecycleOwner){newValue ->
+                if(newValue != null){
+                    if(newValue){
+                        var clientActual = viewModel.clientActual.value
+                        Toast.makeText(it.context, "USUARI CORRECTE", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(it.context,"La contrasenya o el correu son erronis. TORNA",Toast.LENGTH_LONG).show()
+                    }
+                }
             }
-
+        /*
+            viewModel.login.observeForever { value ->
+                if (value) {
+                    var clientActual = viewModel.clientActual.value
+                    Toast.makeText(it.context, "USUARI CORRECTE", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(it.context,"La contrasenya o el correu son erronis. TORNA",Toast.LENGTH_LONG).show()
+                }
+            }
+*/
 
         }
 

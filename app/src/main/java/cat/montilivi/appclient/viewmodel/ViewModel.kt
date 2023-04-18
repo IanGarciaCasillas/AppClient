@@ -1,11 +1,11 @@
 package cat.montilivi.appclient.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import androidx.lifecycle.ViewModel
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import cat.montilivi.appclient.dades.Client
+import com.google.gson.Gson
+import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -17,6 +17,9 @@ import javax.net.ssl.X509TrustManager
 public class ViewModel : ViewModel() {
     private var WEB_SERVER = "https://10.0.2.2:7151/client"
     private var servidor:OkHttpClient = ConexioServidor()
+
+
+
     //PARIDAS
     private val _testJson:MutableLiveData<String> = MutableLiveData<String>()
     public val testJson:LiveData<String> = _testJson
@@ -24,32 +27,63 @@ public class ViewModel : ViewModel() {
 
     //PRIVADES
     private val _login:MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-
+    private val _clientActual:MutableLiveData<Client> = MutableLiveData<Client>()
+    private val _txtLogLogin:MutableLiveData<String> = MutableLiveData<String>()
     //PUBLIQUES
     public val login:LiveData<Boolean> = _login
+    public val clientActual:LiveData<Client> = _clientActual
+    public val txtLogLogin:LiveData<String> = _txtLogLogin
 
 
-    public fun LoginClient(correuClient:String, password:String):Boolean{
+    //FUNCIONS
+
+
+    public fun LoginClient(correuClient:String, password:String){
 
         val thread = Thread{
-            try{
-                var json = JSONObject()
-                json.put("correuClient",correuClient)
-                json.put("passwordClient",password)
+            try {
 
-
-                val request = Request.Builder()
-                    .url(WEB_SERVER)
+                val url = HttpUrl.parse("$WEB_SERVER/login")!!.newBuilder()
+                    .addQueryParameter("correuClient",correuClient)
+                    .addQueryParameter("passwordClient", password)
                     .build()
-                var arr:JSONArray?=null
 
-                val parameters = "{\"$correuClient\": }"
-                servidor.newCall(request).execute().use { resposta ->
-                    if(!resposta.isSuccessful){
-                        throw IOException("Unexpected code $resposta")
+                var request = Request.Builder()
+                    .url(url)
+                    .header("Content-Type","application/json")
+                    .build()
+
+
+                var resposta :Response = servidor.newCall(request).execute()
+
+                if(resposta.isSuccessful){
+
+                    var respostaData = JSONObject(resposta.body()?.string())
+
+                    var statusResposta = respostaData.get("status").toString()
+
+                    if(statusResposta == "Registrat"){
+
+                        var jsonObjectClientString = respostaData.get("client").toString()
+                        var gson = Gson()
+                        var client:Client = gson.fromJson(jsonObjectClientString,Client::class.java)
+
+                        _login.postValue(true)
+                        _clientActual.postValue(client)
+                        _txtLogLogin.postValue("USUARI CORRECTE")
                     }
-                    arr = JSONArray(resposta.body()!!.string())
-                    var espera = 1
+                    else if (statusResposta == "InCorrect"){
+                        //PASSWORD O CORREU INCORRECTE MIRA
+                        _login.postValue(false)
+                        _txtLogLogin.postValue("La contrasenya o el correu son erronis. TORNA")
+                    }
+                    else if(statusResposta == "SenseRegistre"){
+                        _login.postValue(false)
+                        _txtLogLogin.postValue("La contrasenya o el correu son erronis. TORNA")
+                    }
+                }
+                else{
+                    throw IOException("Unexpected code $resposta")
                 }
             }
             catch (e:Exception){
@@ -59,7 +93,6 @@ public class ViewModel : ViewModel() {
 
 
         thread.start()
-        return false
     }
 
 
@@ -100,6 +133,7 @@ public class ViewModel : ViewModel() {
                     if(!resposta.isSuccessful){
                         throw IOException("Unexpected code $resposta")
                     }
+                    var espera = 1
                     arr = JSONArray(resposta.body()!!.string())
                     _testJson.postValue(arr.toString())
                 }

@@ -1,16 +1,23 @@
 package cat.montilivi.appclient.dades
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Client(
-    var Id:Int=0 ,
-    var Correu:String?=null,
-    var Contrasenya:String?=null,
-    var Nom:String?=null,
-    var Cognom:String?=null,
-    var Token:String?=null
+    @SerializedName("id")
+    var Id:Int ,
+    @SerializedName("correu")
+    var Correu:String,
+    @SerializedName("contrasenya")
+    var Contrasenya:String,
+    @SerializedName("nom")
+    var Nom:String,
+    @SerializedName("cognom")
+    var Cognom:String,
+    @SerializedName("token")
+    var Token:String
 ) :Parcelable{
 
     override fun toString(): String {
