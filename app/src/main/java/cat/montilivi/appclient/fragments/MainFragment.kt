@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.findViewTreeLifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import cat.montilivi.appclient.viewmodel.ViewModel
 
 import cat.montilivi.appclient.databinding.FragmentMainBinding
@@ -22,25 +24,29 @@ class MainFragment : Fragment() {
 
         binding = FragmentMainBinding.inflate(LayoutInflater.from(requireContext()),container,false)
 
-        /*
-        var clientWeb:OkHttp = OkHttp()
-        //var result:String = clientWeb.TestGet()
-
-        binding.btnEntrar.setOnClickListener { it ->
-                /*
-            var correuClient = binding.etCorreuClient.text.toString()
-            var passwordClient = binding.etPasswordClient.text.toString()
-            */
-
-            viewModel.testJson.value
-
-        }
-*/
-
         viewModel = ViewModel()
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        var valueString:String = ""
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+
+            viewModel.txtLogLogin.observe(viewLifecycleOwner){newValue ->
+                valueString = newValue
+            }
+
+            viewModel.login.observe(viewLifecycleOwner){ newValue ->
+                if(newValue){
+                    var clientActual = viewModel.clientActual.value
+                    Toast.makeText(requireContext(), valueString, Toast.LENGTH_LONG).show()
+
+
+                } else {
+                    Toast.makeText(requireContext(),valueString,Toast.LENGTH_LONG).show()
+                }
+            }
+        }
 
 
         binding.btnEntrar.setOnClickListener { it ->
@@ -49,7 +55,7 @@ class MainFragment : Fragment() {
 
             viewModel.LoginClient(correuClient,passwordClient)
 
-
+        /*
             viewModel.login.observe(viewLifecycleOwner){newValue ->
                 if(newValue != null){
                     if(newValue){
@@ -60,6 +66,7 @@ class MainFragment : Fragment() {
                     }
                 }
             }
+ */
         /*
             viewModel.login.observeForever { value ->
                 if (value) {

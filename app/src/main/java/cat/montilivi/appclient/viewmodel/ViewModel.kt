@@ -68,18 +68,18 @@ public class ViewModel : ViewModel() {
                         var gson = Gson()
                         var client:Client = gson.fromJson(jsonObjectClientString,Client::class.java)
 
-                        _login.postValue(true)
-                        _clientActual.postValue(client)
                         _txtLogLogin.postValue("USUARI CORRECTE")
+                        _clientActual.postValue(client)
+                        _login.postValue(true)
                     }
                     else if (statusResposta == "InCorrect"){
                         //PASSWORD O CORREU INCORRECTE MIRA
-                        _login.postValue(false)
                         _txtLogLogin.postValue("La contrasenya o el correu son erronis. TORNA")
+                        _login.postValue(false)
                     }
                     else if(statusResposta == "SenseRegistre"){
+                        _txtLogLogin.postValue("NO TENS CAP COMPTA REGISTRADA")
                         _login.postValue(false)
-                        _txtLogLogin.postValue("La contrasenya o el correu son erronis. TORNA")
                     }
                 }
                 else{
