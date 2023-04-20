@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import cat.montilivi.appclient.dades.Client
 import com.google.gson.Gson
 import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -17,7 +18,6 @@ import javax.net.ssl.X509TrustManager
 public class ViewModel : ViewModel() {
     private var WEB_SERVER = "https://10.0.2.2:7151/client"
     private var servidor:OkHttpClient = ConexioServidor()
-
 
 
     //PARIDAS
@@ -43,8 +43,8 @@ public class ViewModel : ViewModel() {
         val thread = Thread{
             try {
 
-                val url = HttpUrl.parse("$WEB_SERVER/login")!!.newBuilder()
-                    .addQueryParameter("correuClient",correuClient)
+                val url = "$WEB_SERVER/login".toHttpUrlOrNull()!!.newBuilder()
+                    .addQueryParameter("correuClient", correuClient)
                     .addQueryParameter("passwordClient", password)
                     .build()
 
@@ -58,7 +58,7 @@ public class ViewModel : ViewModel() {
 
                 if(resposta.isSuccessful){
 
-                    var respostaData = JSONObject(resposta.body()?.string())
+                    var respostaData = JSONObject(resposta.body?.string())
 
                     var statusResposta = respostaData.get("status").toString()
 
@@ -83,7 +83,7 @@ public class ViewModel : ViewModel() {
                     }
                 }
                 else{
-                    throw IOException("Unexpected code $resposta")
+                        throw IOException("Unexpected code $resposta")
                 }
             }
             catch (e:Exception){
@@ -134,7 +134,7 @@ public class ViewModel : ViewModel() {
                         throw IOException("Unexpected code $resposta")
                     }
                     var espera = 1
-                    arr = JSONArray(resposta.body()!!.string())
+                    arr = JSONArray(resposta.body!!.string())
                     _testJson.postValue(arr.toString())
                 }
             }

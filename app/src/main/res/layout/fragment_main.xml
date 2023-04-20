@@ -62,7 +62,6 @@
                     android:textSize="16dp"
                     android:text="ian@gmail.com"
                     android:inputType="textEmailAddress"
-                    android:tooltipText="client.primer@gmail.com"
                     app:layout_constraintBottom_toTopOf="@+id/LinearLayout2"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintTop_toBottomOf="@+id/txtCorreu" />
@@ -124,7 +123,6 @@
                 android:backgroundTint="@color/purple"
                 android:text="REGISTRAR"
                 android:textColor="@color/white"
-                android:onClick="@{() -> viewModel.TestGet()}"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id ("kotlin-parcelize")
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -44,7 +45,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
     //Client OKHTTP
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
 
     //Gson JsonKotlin
     implementation 'com.google.code.gson:gson:2.8.5'

@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class Client(
     @SerializedName("idClient")
-    var IdClient:Int ,
+    var IdClient:Int? ,
     @SerializedName("dni")
     var Dni:String,
     @SerializedName("nomClient")
