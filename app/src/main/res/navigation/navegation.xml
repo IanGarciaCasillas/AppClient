@@ -18,5 +18,9 @@
         android:name="cat.montilivi.appclient.fragments.RegistreFragment"
         android:label="RegistreFragment"
         tools:layout="@layout/fragment_registre"
-        />
+        >
+        <argument
+            android:name="token"
+            app:argType="string" />
+    </fragment>
 </navigation>

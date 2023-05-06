@@ -22,10 +22,6 @@ class RegistreViewModel : ViewModel() {
 
 
 
-
-
-
-
     //Funcio per Registrar CLIENT
     public fun CrearCompte(client:Client){
         val thread = Thread {
@@ -37,7 +33,6 @@ class RegistreViewModel : ViewModel() {
 
 
                 val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), clientJson.toString())
-
 
                 /*
                 val body = RequestBody.create(
@@ -52,8 +47,19 @@ class RegistreViewModel : ViewModel() {
                 servidor.newCall(request).execute().use { resposta ->
                     if (!resposta.isSuccessful) throw IOException("Unexpected code $resposta")
                     //Imprimir el nombre d'elements
-                    var resultData = JSONObject(resposta.body.toString())
+                    var resultData = resposta.body?.string()
+                    var jsonResult = JSONObject(resultData)
 
+                    var resultCode = jsonResult.get("status").toString().toInt()
+                    if(resultCode == 200){
+                        var jsonNewClient= jsonResult.get("newClient").toString()
+                        var nada = 1
+                        var clientSelect:Client = gson.fromJson(jsonNewClient,Client::class.java)
+
+                        //TODO updateClientVariable
+                    }
+
+                    var espera = 1
 
                 }
 

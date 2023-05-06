@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id ("kotlin-parcelize")
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -49,6 +50,9 @@ dependencies {
 
     //Gson JsonKotlin
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    //Firebase
+    implementation 'com.google.firebase:firebase-messaging:22.0.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'

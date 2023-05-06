@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import cat.montilivi.appclient.dades.Client
 import com.google.gson.Gson
 import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONArray
 import org.json.JSONObject
@@ -43,10 +44,11 @@ public class ViewModel : ViewModel() {
         val thread = Thread{
             try {
 
-                val url = "$WEB_SERVER/login".toHttpUrlOrNull()!!.newBuilder()
+                var url = "$WEB_SERVER/login".toHttpUrl().newBuilder()
                     .addQueryParameter("correuClient", correuClient)
                     .addQueryParameter("passwordClient", password)
                     .build()
+
 
                 var request = Request.Builder()
                     .url(url)

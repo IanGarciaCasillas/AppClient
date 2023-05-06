@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "350803593316",
+    "project_id": "projecte-final-15fc7",
+    "storage_bucket": "projecte-final-15fc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350803593316:android:9ec8df6fd053f3b9af7771",
+        "android_client_info": {
+          "package_name": "cat.montilivi.appclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "350803593316-3kr77jabqgp48kjpu47f5iko5nc8la4k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcl6548YeRvEF3Ur45Qf-qkdP_1jZ8sKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "350803593316-3kr77jabqgp48kjpu47f5iko5nc8la4k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

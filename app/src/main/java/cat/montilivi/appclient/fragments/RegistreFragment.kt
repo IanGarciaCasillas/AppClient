@@ -6,20 +6,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import cat.montilivi.appclient.R
 import cat.montilivi.appclient.dades.Client
 import cat.montilivi.appclient.databinding.FragmentRegistreBinding
 import cat.montilivi.appclient.viewmodel.RegistreViewModel
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 
 class RegistreFragment : Fragment() {
 
+    val args:RegistreFragmentArgs by navArgs()
 
     lateinit var viewModel: RegistreViewModel
     lateinit var binding:FragmentRegistreBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
-
-
+        val tokenMobil = args.token
         binding = FragmentRegistreBinding.inflate(LayoutInflater.from(requireContext()),container,false)
         viewModel = RegistreViewModel()
         binding.viewModelRegistre = viewModel
@@ -39,9 +42,8 @@ class RegistreFragment : Fragment() {
             var correuClient = binding.etCorreuClient.text.toString()
             var passwordClient = binding.etPasswordClient.text.toString()
 
-            //TODO Token FireBase
 
-            var client:Client = Client(null,dniClient,nomClient,congom1Client,cognom2Client,correuClient,passwordClient,telefonClient,direccioClient,codicPostalClient,"")
+            var client:Client = Client(null,dniClient,nomClient,congom1Client,cognom2Client,correuClient,passwordClient,telefonClient,direccioClient,codicPostalClient,tokenMobil)
 
             viewModel.CrearCompte(client)
         }
