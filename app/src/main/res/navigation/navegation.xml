@@ -7,20 +7,70 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="cat.montilivi.appclient.fragments.MainFragment"
-        android:label="fragment_main"
+        android:label="LOGIN"
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_registreFragment"
             app:destination="@id/registreFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_articlesFragment"
+            app:destination="@id/articlesFragment" />
     </fragment>
     <fragment
         android:id="@+id/registreFragment"
         android:name="cat.montilivi.appclient.fragments.RegistreFragment"
-        android:label="RegistreFragment"
+        android:label="REGISTRE"
         tools:layout="@layout/fragment_registre"
         >
         <argument
             android:name="token"
             app:argType="string" />
+        <action
+            android:id="@+id/action_registreFragment_to_articlesFragment"
+            app:destination="@id/articlesFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/articlesFragment"
+        android:name="cat.montilivi.appclient.fragments.ArticlesFragment"
+        android:label="ArticlesFragment"
+        tools:layout="@layout/fragment_articles"
+        >
+        <argument
+            android:name="client"
+            app:argType="cat.montilivi.appclient.dades.Client" />
+    </fragment>
+    <fragment
+        android:id="@+id/cistellaFragment"
+        android:name="cat.montilivi.appclient.fragments.CistellaFragment"
+        android:label="CistellaFragment"
+        tools:layout="@layout/fragment_cistella"
+        />
+    <fragment
+        android:id="@+id/lliurarFacturaFragment2"
+        android:name="cat.montilivi.appclient.fragments.LliurarFacturaFragment"
+        android:label="LliurarFacturaFragment"
+        tools:layout="@layout/fragment_lliurar_factura"
+        />
+    <fragment
+        android:id="@+id/comandesFragment"
+        android:name="cat.montilivi.appclient.fragments.ComandesFragment"
+        android:label="ComandesFragment"
+        tools:layout="@layout/fragment_comandes"
+        >
+        <action
+            android:id="@+id/action_comandesFragment_to_comandesDetallsFragment2"
+            app:destination="@id/comandesDetallsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/comandesDetallsFragment2"
+        android:name="cat.montilivi.appclient.fragments.ComandesDetallsFragment"
+        android:label="fragment_comandes_detalls"
+        tools:layout="@layout/fragment_comandes_detalls"
+        />
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="cat.montilivi.appclient.fragments.PerfilFragment"
+        android:label="PerfilFragment"
+        tools:layout="@layout/fragment_perfil"
+        />
 </navigation>

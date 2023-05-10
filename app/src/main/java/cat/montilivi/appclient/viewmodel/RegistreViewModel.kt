@@ -1,5 +1,7 @@
 package cat.montilivi.appclient.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import cat.montilivi.appclient.dades.Client
 import com.google.gson.Gson
@@ -21,6 +23,13 @@ class RegistreViewModel : ViewModel() {
 
 
 
+    private var _clientAccept:MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+    private var _textRegistre:MutableLiveData<String> = MutableLiveData<String>()
+    private var _client:MutableLiveData<Client> = MutableLiveData<Client>()
+
+    public var clientAccept:LiveData<Boolean> = _clientAccept
+    public var textRegistre:LiveData<String> = _textRegistre
+    public var client:LiveData<Client> = _client
 
     //Funcio per Registrar CLIENT
     public fun CrearCompte(client:Client){
@@ -34,11 +43,6 @@ class RegistreViewModel : ViewModel() {
 
                 val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), clientJson.toString())
 
-                /*
-                val body = RequestBody.create(
-                    MediaType.parse("application/json; charset=utf-8"),
-                    "${jsonObject.toString()}")
-                 */
                 val request = Request.Builder()
                     .url(WEB_SERVER)
                     .post(body)
@@ -56,14 +60,19 @@ class RegistreViewModel : ViewModel() {
                         var nada = 1
                         var clientSelect:Client = gson.fromJson(jsonNewClient,Client::class.java)
 
-                        //TODO updateClientVariable
+                        _client.postValue(clientSelect)
+                        _textRegistre.postValue("REGISTRE CORRECTE")
+                        _clientAccept.postValue(true)
+
+                    }
+                    else if(resultCode == 201){
+                        _textRegistre.postValue("Correu ja existent")
+                        _clientAccept.postValue(false)
                     }
 
+
                     var espera = 1
-
                 }
-
-
             } catch (e: Exception) {
                 e.printStackTrace()
             }

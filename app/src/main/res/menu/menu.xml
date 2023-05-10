@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_articles"
+        android:title="ARTICLES"
+        android:icon="@drawable/icon_articles"
+        />
+    <item
+        android:id="@+id/menu_cistella"
+        android:title="CISTELLA"
+        android:icon="@drawable/icon_cistella"
+        />
+    <item
+        android:id="@+id/menu_factura"
+        android:title="LLIURAR FACTURA"
+        android:icon="@drawable/icon_lliurar_factura"
+        />
+    <item
+        android:id="@+id/menu_comandes"
+        android:title="COMANDES"
+        android:icon="@drawable/icon_comandes"
+        />
+    <item
+        android:id="@+id/menu_perfil"
+        android:title="PERFIL"
+        android:icon="@drawable/icon_perfil"
+        />
+</menu>

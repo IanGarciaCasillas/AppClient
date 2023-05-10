@@ -6,6 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import cat.montilivi.appclient.R
 import cat.montilivi.appclient.dades.Client
@@ -27,6 +31,24 @@ class RegistreFragment : Fragment() {
         viewModel = RegistreViewModel()
         binding.viewModelRegistre = viewModel
         binding.lifecycleOwner = this
+
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.clientAccept.observe(viewLifecycleOwner){newValue ->
+                if(newValue){
+                    //REGISTRE CORRECTE
+                    var client = viewModel.client.value
+                    var navController: NavController = Navigation.findNavController(requireView())
+                    navController.navigate(RegistreFragmentDirections.actionRegistreFragmentToArticlesFragment(client!!))
+                }
+                else{
+                    //REGISTRE INCORRECTE
+                    Toast.makeText(requireContext(),viewModel.textRegistre.value, Toast.LENGTH_LONG).show()
+                }
+
+            }
+        }
+
 
 
 

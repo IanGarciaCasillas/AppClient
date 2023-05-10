@@ -13,18 +13,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import cat.montilivi.appclient.MainActivity
 import cat.montilivi.appclient.R
 import cat.montilivi.appclient.viewmodel.ViewModel
 
 import cat.montilivi.appclient.databinding.FragmentMainBinding
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -37,17 +42,21 @@ class MainFragment : Fragment() {
         private const val TAG = "MainFragment"
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
-        binding = FragmentMainBinding.inflate(LayoutInflater.from(requireContext()),container,false)
+        //binding = FragmentMainBinding.inflate(LayoutInflater.from(requireContext()),container,false)
+        binding = FragmentMainBinding.inflate(inflater,container,false)
+
 
         viewModel = ViewModel()
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+
+
         var valueString:String = ""
+        var boolLogin = false
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.txtLogLogin.observe(viewLifecycleOwner){newValue ->
@@ -57,6 +66,8 @@ class MainFragment : Fragment() {
                 if(newValue){
                     var clientActual = viewModel.clientActual.value
                     Toast.makeText(requireContext(), valueString, Toast.LENGTH_LONG).show()
+                    var navController:NavController = Navigation.findNavController(requireView())
+                    navController.navigate(MainFragmentDirections.actionMainFragmentToArticlesFragment(clientActual!!))
                 } else {
                     Toast.makeText(requireContext(),valueString,Toast.LENGTH_LONG).show()
                 }
@@ -69,17 +80,14 @@ class MainFragment : Fragment() {
             var passwordClient = binding.etPasswordClient.text.toString()
 
             viewModel.LoginClient(correuClient,passwordClient)
-
         }
 
         binding.btnRegistre.setOnClickListener { it ->
             var navController:NavController = Navigation.findNavController(it)
 
-            //navController.navigate(MainFragmentDirections.actionMainFragmentToRegistreFragment())
            navController.navigate(MainFragmentDirections.actionMainFragmentToRegistreFragment(tokenValue))
-
-
         }
+
 
 
         //NOTIFICACIO
@@ -91,17 +99,12 @@ class MainFragment : Fragment() {
                     Log.w(TAG, "Error al obtener el token de registro", task.exception)
                     return@OnCompleteListener
                 }
-
                 // Obtener el token de registro
                 val token = task.result
                 tokenValue = token!!
 
-                // Enviar el token de registro al servidor web API ASP.NET Core C#
-                // Log and toast
                 val msg = getString(R.string.msg_token_fmt, token)
                 Log.d(TAG, msg)
-                //Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-
                 var nada = 1
                 var myTokenDispo = token
             })
@@ -109,9 +112,10 @@ class MainFragment : Fragment() {
         this.askNotificationPermission()
 
 
-        //return inflater.inflate(R.layout.fragment_main, container, false)
         return binding.root
     }
+
+
 
     //FUNCIONS PER LA NOTIFICACIO
     // Declare the launcher at the top of your Activity/Fragment:
