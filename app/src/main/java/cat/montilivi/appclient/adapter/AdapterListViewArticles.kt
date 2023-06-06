@@ -11,8 +11,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import cat.montilivi.appclient.ClientManager
 import cat.montilivi.appclient.R
 import cat.montilivi.appclient.dades.Article
+import cat.montilivi.appclient.dades.ArticleCistella
 import cat.montilivi.appclient.databinding.ItemArticleListBinding
 import cat.montilivi.appclient.viewmodel.ArticlesViewModel
 import java.nio.charset.Charset
@@ -21,17 +23,7 @@ import java.util.*
 
 class AdapterListViewArticles (var context: Context, var llistaArtilces:MutableList<Article>,var viewModel:ArticlesViewModel): BaseAdapter() {
 
-    /*
-    //ITEMS LAYOUT
-    lateinit var imgFotoArticle:ImageView
-    lateinit var txtNomArticle:TextView
-    lateinit var txtPreuArticle:TextView
-    lateinit var txtDispon:TextView
-    lateinit var btnAfegir:Button
-    */
     lateinit var binding:ItemArticleListBinding
-
-
 
     override fun getCount(): Int {
         return llistaArtilces.size
@@ -59,13 +51,9 @@ class AdapterListViewArticles (var context: Context, var llistaArtilces:MutableL
         }
 
         binding.imgFotoArticle.setImageBitmap(btm)
-       binding.txtNomArticle.text = articleSelect.NomArticle
-       binding.txtPreuArticle.text = "${articleSelect.PreuVenta}€"
+        binding.txtNomArticle.text = articleSelect.NomArticle
+        binding.txtPreuArticle.text = "${articleSelect.PreuVenta}€"
         binding.txtDispon.text = "Disponibles: ${articleSelect.Stock}"
-
-
-
-
 
 
         binding.btnAfegir.setOnClickListener { it ->

@@ -6,7 +6,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import cat.montilivi.appclient.ClientManager
 import cat.montilivi.appclient.dades.Article
+import cat.montilivi.appclient.dades.ArticleCistella
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
@@ -42,11 +44,19 @@ class ArticlesViewModel : ViewModel() {
 
 
 
-
-
     public fun AfegirArticle(article:Article){
-        _llistaArticles.value!!.add(article)
+        //_llistaArticles.value!!.add(article)
         _articleAdd.postValue(article.NomArticle)
+
+        if(ClientManager.cistella.any{it.Article == article}){
+            var idxSelect = ClientManager.cistella.indexOfFirst { it.Article == article }
+            var articleSelect = ClientManager.cistella[idxSelect]
+            articleSelect.Quantitat = articleSelect.Quantitat!! + 1
+        }
+        else{
+            ClientManager.cistella.add(ArticleCistella(article,1))
+        }
+
     }
 
 
@@ -79,7 +89,8 @@ class ArticlesViewModel : ViewModel() {
 
                         _llistaArticles.value!!.clear()
                         for(article in articles){
-                            _llistaArticles.value!!.add(article)
+                            if(article.Stock>0)
+                                _llistaArticles.value!!.add(article)
                         }
                         _llistaCarregada.postValue(true)
                     }
@@ -128,7 +139,6 @@ class ArticlesViewModel : ViewModel() {
             }catch (e:Exception){
                 Log.e("ArticlesViewModel", "Problemas en al funcio GetArticles:\n ${e.message}")
             }
-
         }
 
         thread.start()

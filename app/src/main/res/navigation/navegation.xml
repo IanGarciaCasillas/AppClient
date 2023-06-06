@@ -22,9 +22,6 @@
         android:label="REGISTRE"
         tools:layout="@layout/fragment_registre"
         >
-        <argument
-            android:name="token"
-            app:argType="string" />
         <action
             android:id="@+id/action_registreFragment_to_articlesFragment"
             app:destination="@id/articlesFragment" />
@@ -34,11 +31,7 @@
         android:name="cat.montilivi.appclient.fragments.ArticlesFragment"
         android:label="ArticlesFragment"
         tools:layout="@layout/fragment_articles"
-        >
-        <argument
-            android:name="client"
-            app:argType="cat.montilivi.appclient.dades.Client" />
-    </fragment>
+        />
     <fragment
         android:id="@+id/cistellaFragment"
         android:name="cat.montilivi.appclient.fragments.CistellaFragment"
@@ -58,15 +51,19 @@
         tools:layout="@layout/fragment_comandes"
         >
         <action
-            android:id="@+id/action_comandesFragment_to_comandesDetallsFragment2"
-            app:destination="@id/comandesDetallsFragment2" />
+            android:id="@+id/action_comandesFragment_to_comandesDetallsFragment"
+            app:destination="@id/comandesDetallsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/comandesDetallsFragment2"
+        android:id="@+id/comandesDetallsFragment"
         android:name="cat.montilivi.appclient.fragments.ComandesDetallsFragment"
         android:label="fragment_comandes_detalls"
         tools:layout="@layout/fragment_comandes_detalls"
-        />
+        >
+        <argument
+            android:name="comanda"
+            app:argType="cat.montilivi.appclient.dades.ComandaVenda" />
+    </fragment>
     <fragment
         android:id="@+id/perfilFragment"
         android:name="cat.montilivi.appclient.fragments.PerfilFragment"

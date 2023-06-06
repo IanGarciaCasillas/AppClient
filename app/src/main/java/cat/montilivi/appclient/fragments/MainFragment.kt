@@ -23,6 +23,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import cat.montilivi.appclient.ClientManager
 import cat.montilivi.appclient.MainActivity
 import cat.montilivi.appclient.R
 import cat.montilivi.appclient.viewmodel.ViewModel
@@ -52,6 +53,7 @@ class MainFragment : Fragment() {
         viewModel = ViewModel()
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        var clientManager = ClientManager
 
 
 
@@ -65,9 +67,10 @@ class MainFragment : Fragment() {
             viewModel.login.observe(viewLifecycleOwner){ newValue ->
                 if(newValue){
                     var clientActual = viewModel.clientActual.value
+                    ClientManager.client = clientActual
                     Toast.makeText(requireContext(), valueString, Toast.LENGTH_LONG).show()
                     var navController:NavController = Navigation.findNavController(requireView())
-                    navController.navigate(MainFragmentDirections.actionMainFragmentToArticlesFragment(clientActual!!))
+                    navController.navigate(MainFragmentDirections.actionMainFragmentToArticlesFragment())
                 } else {
                     Toast.makeText(requireContext(),valueString,Toast.LENGTH_LONG).show()
                 }
@@ -85,7 +88,8 @@ class MainFragment : Fragment() {
         binding.btnRegistre.setOnClickListener { it ->
             var navController:NavController = Navigation.findNavController(it)
 
-           navController.navigate(MainFragmentDirections.actionMainFragmentToRegistreFragment(tokenValue))
+            clientManager.token = tokenValue
+           navController.navigate(MainFragmentDirections.actionMainFragmentToRegistreFragment())
         }
 
 

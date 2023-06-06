@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:foregroundGravity="center"
+       >
+
+       <LinearLayout
+           android:id="@+id/linearLayout"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent">
+
+           <Button
+               android:id="@+id/btnSumarCount"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:backgroundTint="@color/green"
+               android:text="+"
+               android:textColor="@color/black"
+               android:textSize="30dp" />
+
+           <TextView
+               android:id="@+id/txtCountArticle"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:textAlignment="center"
+               android:textColor="@color/black"
+               android:textSize="20dp"
+               tools:text="2" />
+
+           <Button
+               android:id="@+id/btnRestaCount"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:backgroundTint="@color/red"
+               android:text="-"
+               android:textColor="@color/black"
+               android:textSize="30dp" />
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/linearLayout2"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:orientation="vertical"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toStartOf="@+id/btnDeleterArticle"
+           app:layout_constraintStart_toEndOf="@+id/linearLayout"
+           app:layout_constraintTop_toTopOf="parent">
+
+           <TextView
+               android:id="@+id/txtNomArticle"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:textAlignment="center"
+               android:textColor="@color/black"
+               android:textSize="20dp"
+               tools:text="Nom article" />
+
+           <TextView
+               android:id="@+id/txtPreuArticle"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:textAlignment="center"
+               android:textColor="@color/black"
+               android:textSize="20dp"
+               tools:text="10 €/u" />
+
+           <TextView
+               android:id="@+id/txtTotalArticles"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:textAlignment="center"
+               android:textColor="@color/black"
+               android:textSize="20dp"
+               tools:text="Total: 20€" />
+
+       </LinearLayout>
+
+       <ImageButton
+           android:id="@+id/btnDeleterArticle"
+           android:layout_width="150dp"
+           android:layout_height="150dp"
+           android:background="@color/white"
+           android:scaleType="fitCenter"
+           android:src="@drawable/papera"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toTopOf="parent" />
+   </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

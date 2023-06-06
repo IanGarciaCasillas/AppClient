@@ -23,8 +23,6 @@ class ArticlesFragment : Fragment() {
     lateinit var viewModel: ArticlesViewModel
     lateinit var binding:FragmentArticlesBinding
 
-    val args:ArticlesFragmentArgs by navArgs ()
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         binding = FragmentArticlesBinding.inflate(LayoutInflater.from(requireContext()),container,false)
@@ -32,7 +30,7 @@ class ArticlesFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         //val client = args.client
-        //var aglo= "asdfasdf"
+
 
         var bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
@@ -57,6 +55,7 @@ class ArticlesFragment : Fragment() {
             viewModel.articleAdd.observe(viewLifecycleOwner){newValue ->
                 Toast.makeText(requireContext(),"$newValue afegides a la cistella",Toast.LENGTH_LONG).show()
             }
+
         }
 
 

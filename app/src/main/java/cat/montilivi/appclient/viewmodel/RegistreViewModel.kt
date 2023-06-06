@@ -36,7 +36,6 @@ class RegistreViewModel : ViewModel() {
         val thread = Thread {
             try
             {
-
                 var gson = Gson()
                 var clientJson = gson.toJson(client)
 
